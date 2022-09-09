@@ -84,6 +84,35 @@ order by sum(new_deaths) desc
 
 -- ( PAGE 2 )
 
+--PRINTS THE NUMBER OF MALE AND FEMALE SMOKERS IN TOTAL CASES PER LOCATION
+
+select location, max(total_cases) as TotalCases, avg(female_smokers) as PercentFemaleSmoker, avg(male_smokers) as PercentMaleSmoker, 
+max(total_cases)*avg(female_smokers)/100 as TotalFemaleSmokersInCases, max(total_cases)*avg(male_smokers)/100 as TotalMaleSmokersInCases
+from smokersdatainclusive
+where continent is not null
+group by location
+order by max(total_cases) desc
+
+
+-- PRINTS PERCENTAGE OF MALE SMOKERS PER LOCATION
+
+select max(male_smokers) as maxperofmalesmokers, location
+from smokersdatainclusive
+group by location
+order by max(male_smokers) desc
+
+
+-- PRINTS PERCENTAGE OF FEMALE SMOKERS PER LOCATION
+
+select max(female_smokers) as maxperoffemalesmokers , location
+from smokersdatainclusive
+group by location
+order by max(female_smokers) desc
+
+
+
+-- ( PAGE 3 )
+
 --GLOBAL NUMBERS 
 
 select  date , sum(new_cases) as TotalCases,  sum(new_deaths) as TotalDeaths , sum(new_deaths)/sum(new_cases)*100 as ChancesOfDeath
@@ -94,9 +123,7 @@ order by date
 
 
 
-
--- ( PAGE 3 )
-
+-- (PAGE 4)
 
 -- USED TO GET LOCATION WISE VACCINATION DATA
 
@@ -111,8 +138,6 @@ order by max(covidvaccine.people_vaccinated) desc
 
 
 
-
-------------*-------------*------------------*----------------*----------------*--------------*-----------------*-----------------*------------------*-------------*--------
 
 
 
